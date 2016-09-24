@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
 
 from . import datasource
 from . import forms, models
@@ -80,3 +81,7 @@ def virtual_fix_remove(request, id):
     except:
         request.session['message'] = [{"type":"danger","msg":"Failed to delete fix!"}]
     return HttpResponseRedirect(reverse('virtual_fix_list'))
+
+
+def threads(request):
+    return render_to_response('dashboard/threads.html',{"page_name" : "Threads"})
