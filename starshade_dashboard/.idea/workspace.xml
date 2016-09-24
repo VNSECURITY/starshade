@@ -46,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="threads.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="threads.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/dashboard/threads.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
@@ -92,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/dashboard/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="109" selection-start-line="20" selection-start-column="109" selection-end-line="20" selection-end-column="109" />
+            <state relative-caret-position="315">
+              <caret line="21" column="49" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -173,8 +173,8 @@
         <option value="$PROJECT_DIR$/dashboard/urls.py" />
         <option value="$PROJECT_DIR$/starshade/views.py" />
         <option value="$PROJECT_DIR$/statics/mock/flare.json" />
-        <option value="$PROJECT_DIR$/templates/dashboard/base.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/threads.html" />
+        <option value="$PROJECT_DIR$/templates/dashboard/base.html" />
       </list>
     </option>
   </component>
@@ -1023,10 +1023,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard/base.html">
+    <entry file="file://$PROJECT_DIR$/templates/dashboard/threads.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="109" selection-start-line="20" selection-start-column="109" selection-end-line="20" selection-end-column="109" />
+        <state relative-caret-position="195">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1043,10 +1043,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard/threads.html">
+    <entry file="file://$PROJECT_DIR$/templates/dashboard/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        <state relative-caret-position="315">
+          <caret line="21" column="49" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="49" />
           <folding />
         </state>
       </provider>
