@@ -1,0 +1,79 @@
+{% load staticfiles compress i18n templatetag_handlebars humanize starshade %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html class="has-sidebar" lang="{{ LANGUAGE_CODE }}" date-format="{% date_format %}">
+<head>
+
+    <!-- Basic -->
+    <meta charset="UTF-8">
+    <title>{% block head_title %}{% if page_name %}StarShade::{{ page_name }}{% else %}StarShade
+    {% endif %}{% endblock %}</title>
+    {% block meta %}
+        <meta name="keywords" content="{{ keywords }}"/>
+        <meta name="description" content="{{ descriptions }}">
+        <meta name="author" content="{{ author }}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    {% endblock %}
+
+    {% block _header_css %}
+        <!-- Web Fonts  -->
+
+        <!-- Bootstrap -->
+        <link href="{% static "vendors/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{% static "vendors/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static "vendors/codemirror/lib/codemirror.css" %}"/>
+        <link rel="stylesheet" href="{% static "vendors/bootstrap-daterangepicker/daterangepicker.css" %}"/>
+        <link rel="stylesheet" href="{% static "assets/css/animate.css" %}"/>
+        <link rel="stylesheet" href="{% static "assets/css/custom.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "assets/css/starshade.css" %}"/>
+        {% block header_css %}{% endblock %}
+    {% endblock %}
+    {% block header_js %}{% endblock %}
+</head>
+{% block body %}
+
+{% endblock %}
+<!-- foot -->
+{% block footer_js %}
+    {% compress js %}
+        <!-- jQuery -->
+        <script src="{% static "vendors/jquery/dist/jquery.min.js" %}"></script>
+        <!-- Bootstrap -->
+        <script src="{% static "vendors/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+        <!-- FastClick -->
+        <script src="{% static "vendors/fastclick/lib/fastclick.js" %}"></script>
+        <!-- NProgress -->
+        <script src="{% static "vendors/nprogress/nprogress.js" %}"></script>
+        <!-- Chart.js -->
+        <script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>
+        <!-- gauge.js -->
+        <script src="{% static "vendors/bernii/gauge.js/dist/gauge.min.js" %}"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="{% static "vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" %}"></script>
+        <!-- iCheck -->
+        <script src="{% static "vendors/iCheck/icheck.min.js" %}"></script>
+        <!-- Skycons -->
+        <script src="{% static "vendors/skycons/skycons.js" %}"></script>
+
+        <script src="{% static "vendors/moment/moment.js" %}"></script>
+        <script src="{% static "vendors/bootstrap-daterangepicker/daterangepicker.js" %}"></script>
+        <!-- Flot -->
+        <script src="{% static "vendors/Flot/jquery.flot.js" %}"></script>
+        <script src="{% static "vendors/Flot/jquery.flot.pie.js" %}"></script>
+        <script src="{% static "vendors/Flot/jquery.flot.time.js" %}"></script>
+        <script src="{% static "vendors/Flot/jquery.flot.stack.js" %}"></script>
+        <script src="{% static "vendors/Flot/jquery.flot.resize.js" %}"></script>
+
+        <script src="{% static "vendors/codemirror/lib/codemirror.js" %}"></script>
+        <script src="{% static "vendors/codemirror/mode/javascript/javascript.js" %}"></script>
+
+        <script src={% static "assets/js/custom.min.js" %}></script>
+        <script src={% static "assets/js/starshade.js" %}></script>
+    {% endcompress %}
+    {% block extra_js %}{% endblock %}
+    {% block extra_body %}{% endblock %}
+{% endblock %}
+</html>

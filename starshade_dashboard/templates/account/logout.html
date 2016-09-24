@@ -1,0 +1,32 @@
+{% extends "account/dialog_base.html" %}
+
+{% load i18n staticfiles account bootstrap3 %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block panel %}
+    <div class="panel panel-sign">
+        <div class="panel-title-sign mt-xl text-right">
+            <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> {% trans "Sign Out" %}</h2>
+        </div>
+        <div class="panel-body">
+            <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+            <form method="post" action="{% url 'account_logout' %}">
+              {% csrf_token %}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+              {% endif %}
+            <div class="row text-center">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn hidden-xs">{% trans "Sign Out" %}</button>
+                    <button type="submit" class="btn btn-block btn-lg visible-xs mt-lg">{% trans "Sign Out" %}</button>
+
+                    <button onclick="window.history.back()" class="btn hidden-xs">{% trans "Back" %}</button>
+                    <button onclick="window.history.back()" class="btn btn-block btn-lg visible-xs mt-lg">{% trans "Back" %}</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

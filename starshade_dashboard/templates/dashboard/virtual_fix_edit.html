@@ -1,0 +1,38 @@
+{% extends "dashboard/base.html" %}
+{% load bootstrap3 i18n %}
+{% block content %}
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{ page_name }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a href="{% url 'virtual_fix_list' %}" class="back-link"><i class="fa fa-chevron-left"></i> Back</a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <form class="form" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button class="btn btn-primary">{% trans "Save" %}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("id_patch"), {
+            lineNumbers: true,
+            mode: "application/json",
+            matchBrackets: true
+        });
+    </script>
+{% endblock %}
