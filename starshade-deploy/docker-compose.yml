@@ -1,0 +1,42 @@
+elasticsearch:
+  container_name: starshade-es
+  image: starshade-elasticsearch:latest
+  command: elasticsearch -Des.network.host=0.0.0.0
+  hostname: starshade-elasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+#  command:
+#    - /usr/bin/curl -XPUT 'http://localhost:9200/_template/filebeat' -d@/tmp/ft.json 
+logstash:
+  container_name: starshade-log
+  image: starshade-logstash
+  hostname: starshade-logstash
+  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  volumes:
+    - ./logstash/config:/etc/logstash/conf.d
+  ports:
+    - "5000:5000"
+  links:
+    - elasticsearch
+
+kibana:
+  container_name: starshade-kibana
+  build: kibana/
+  volumes:
+    - ./kibana/config/:/opt/kibana/config/
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch
+
+frontend:
+  container_name: starshade-soc
+  hostname: starshade-soc
+  build: frontend/
+  ports:
+    - "80:80"
+  links: 
+    - elasticsearch
+
+ 
