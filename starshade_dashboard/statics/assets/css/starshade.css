@@ -7,4 +7,9 @@ tr[data-status^="status-4"],.tr[data-status^="5"]{
 }
 tr[data-status="status-403"]{
     background-color: rgba(231, 76, 60, 0.88);
+    color: white;
+}
+tr[data-status="status-403"]:hover,tr[data-status="status-403"]:hover td{
+    background-color: rgba(231, 76, 60, 0.58);
+    color: white;
 }
