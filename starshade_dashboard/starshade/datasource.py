@@ -15,7 +15,7 @@ from elasticsearch_dsl import Search, Q
 
 es = Elasticsearch(["52.77.212.201"])
 
-use_mock = True
+use_mock = False
 
 
 def current_data():
