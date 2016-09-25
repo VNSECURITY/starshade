@@ -25,7 +25,7 @@ def current_data():
             'gte': int(time.time()*1000 - 30*60*1000)
         }
     })
-    s = s.query('exists', field='clientip')
+    s = s.filter('exists', field='clientip')
     s = s.sort({
         "@timestamp": {"order": "desc", "unmapped_type": "boolean"}
     })
@@ -42,6 +42,7 @@ def current_data():
 
 def threads():
     s = Search(using=es)
+    s = s.filter('exists', field='clientip')
     s = s.filter('range', response={'gte': 400, 'lt': 600})
     s = s.sort({"@timestamp": {"order": "desc"}})
     return s.execute()
@@ -49,6 +50,7 @@ def threads():
 
 def blocked_data():
     s = Search(using=es)
+    s = s.filter('exists', field='clientip')
     s = s.filter('match', response='403')
     s = s.sort({"@timestamp": {"order": "desc"}})
     return s.execute()
@@ -100,6 +102,7 @@ def get_request_histogram():
             'gte': time_range['min'],
             # 'time_zone': '+0000',
         }})
+    s = s.filter('exists', field='clientip')
     s.aggs.bucket('request_histogram', 'date_histogram',
                   field='@timestamp',
                   # time_zone='+0000',
@@ -128,6 +131,7 @@ def get_threads_histogram():
             'gte': time_range['min'],
             # 'time_zone': '+0000',
         }}).filter('range', response={'gte': 400, 'lt': 600})
+    s = s.filter('exists', field='clientip')
 
     s.aggs.bucket('thread_histogram', 'date_histogram',
                   field='@timestamp',

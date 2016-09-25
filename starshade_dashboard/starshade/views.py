@@ -13,7 +13,8 @@ import json
 
 @login_required
 def redirect_kibana(request):
-    return HttpResponseRedirect("http://%s:5601/app/kibana" % (request.META['HTTP_HOST']))
+    print "http://%s:5601/app/kibana" % (request.META['HTTP_HOST'])
+    return HttpResponseRedirect("http://%s:5601/app/kibana" % (request.META['HTTP_HOST'].split(":")[0]))
 
 
 @login_required
