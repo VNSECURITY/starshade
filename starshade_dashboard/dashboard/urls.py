@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^virtual-fixes$', 'starshade.views.virtual_fix_list', name='virtual_fix_list'),
     url(r'^threads$', 'starshade.views.threads', name=''),
     url(r'^virtual-fixes/get$', 'starshade.views.virtual_fix_public', name='virtual_fix_public'),
+    url(r'^virtual-fixes/getver$', 'starshade.views.virtual_fix_version', name='virtual_fix_version'),
     url(r'^virtual-fix/new$', 'starshade.views.virtual_fix_new', name='virtual_fix_new'),
     url(r'^virtual-fix/(?P<id>[0-9a-zA-Z_-]+)/edit', 'starshade.views.virtual_fix_edit', name='virtual_fix_edit'),
     url(r'^virtual-fix/(?P<id>[0-9a-zA-Z_-]+)/remove', 'starshade.views.virtual_fix_remove', name='virtual_fix_remove'),

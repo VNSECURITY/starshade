@@ -28,15 +28,23 @@ def virtual_fix_list(request):
     })
 
 def virtual_fix_public(request):
-    content = "[\n"
+    content = ""
     first = True
     for fix in models.VirtualFix.objects.all():
         if not first:
             content += ",\n"
         first = False
-        content += '/*' + fix.title + "*/\n"
+        content += fix.title + "\n"
         content += fix.patch + ""
-    content += "\n]"
+    content += "\n"
+    return HttpResponse(content)
+
+
+def virtual_fix_version(request):
+    content = ""
+    first = True
+    for fix in models.VirtualFix.objects.all():
+        content += fix.title + "\n"
     return HttpResponse(content)
 
 
