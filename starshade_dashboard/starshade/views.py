@@ -29,7 +29,7 @@ def home(request):
 @login_required
 def virtual_fix_list(request):
     return render(request, "dashboard/virtual_fix_list.html", {
-        'page_name': "Virtual Fixes",
+        'page_name': "Virtual Patching",
         'fixes': models.VirtualFix.objects.all()
     })
 
@@ -65,7 +65,7 @@ def virtual_fix_new(request):
         request.session['message'] = [{"type":"success","msg":"Fix created!"}]
         return HttpResponseRedirect(reverse('virtual_fix_edit', kwargs={'id':form.instance.pk}))
     return render(request, "dashboard/virtual_fix_edit.html", {
-        'page_name': "New Virtual Fix",
+        'page_name': "New Virtual Patching ",
         'form': form
     })
 
