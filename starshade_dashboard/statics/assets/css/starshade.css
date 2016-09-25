@@ -1,3 +1,10 @@
 .CodeMirror {
     border: solid 1px #888;
 }
+
+tr[data-status^="status-4"],.tr[data-status^="5"]{
+    background-color: rgba(243, 156, 18, 0.88);
+}
+tr[data-status="status-403"]{
+    background-color: rgba(231, 76, 60, 0.88);
+}

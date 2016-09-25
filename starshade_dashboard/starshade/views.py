@@ -11,12 +11,17 @@ from . import forms, models
 
 import json
 
+@login_required
+def redirect_kibana(request):
+    return HttpResponseRedirect("http://%s:5601/app/kibana" % (request.META['HTTP_HOST']))
+
 
 @login_required
 def home(request):
     return render(request, "dashboard/home.html", {
         "current_data" : datasource.current_data(),
         "threads" : datasource.threads(),
+        "blocked" : datasource.blocked_data(),
     })
 
 
@@ -92,4 +97,7 @@ def virtual_fix_remove(request, id):
 
 
 def threads(request):
-    return render_to_response('dashboard/threads.html',{"page_name" : "Threads"})
+    return render_to_response('dashboard/threads.html',{
+        "page_name" : "Threads",
+        "threads": datasource.threads(),
+    })

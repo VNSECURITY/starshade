@@ -24,6 +24,8 @@ urlpatterns = [
 
     url(r'^accounts/', include('allauth.urls')),
 
+    url(r'^kibana$', 'starshade.views.redirect_kibana'),
+
     url(r'^virtual-fixes$', 'starshade.views.virtual_fix_list', name='virtual_fix_list'),
     url(r'^threads$', 'starshade.views.threads', name=''),
     url(r'^virtual-fixes/get$', 'starshade.views.virtual_fix_public', name='virtual_fix_public'),

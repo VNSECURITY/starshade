@@ -19,8 +19,85 @@
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div style="width: 100%;">
-                        <div id="canvas_dahs" style="width: 100%; height:270px;"></div>
+                        <div id="canvas_request" style="width: 100%; height:130px;"></div>
+                        <div id="canvas_attack" style="width: 100%; height:100px;"></div>
                     </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="dashboard_graph">
+                <div class="row x_title">
+                    <h3>Blocked requests</h3>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="overflow: auto">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>IP</th>
+                            <th>Host ID</th>
+                            <th>URI</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for d in blocked %}
+                            {% if d.clientip %}
+                                <tr class="danger">
+                                    <td>{{ d.timestamp }}</td>
+                                    <td>{{ d.clientip }}</td>
+                                    <td>{{ d.host }}</td>
+                                    <td>{{ d.request }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="dashboard_graph">
+                <div class="row x_title">
+                    <h3>Suspicious Threats</h3>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="overflow: auto">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>IP</th>
+                            <th>HostID</th>
+                            <th>Response</th>
+                            <th>URI</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for d in threads %}
+                            {% if d.clientip %}
+                                <tr class="warning">
+                                    <td>{{ d.timestamp }}</td>
+                                    <td>{{ d.clientip }}</td>
+                                    <td>{{ d.host }}</td>
+                                    <td>{{ d.response }}</td>
+                                    <td>{{ d.request }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="clearfix"></div>
@@ -35,53 +112,23 @@
                     <h3>Latest Requests</h3>
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <table class="table">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="overflow: auto">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th>Time</th>
                             <th>IP</th>
+                            <th>Host ID</th>
                             <th>URI</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for d in current_data %}
                             {% if d.clientip %}
-                                <tr>
+                                <tr data-status="status-{{ d.response }}">
+                                    <td>{{ d.timestamp }}</td>
                                     <td>{{ d.clientip }}</td>
-                                    <td>{{ d.request }}</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="dashboard_graph">
-                <div class="row x_title">
-                    <h3>Suspecious Threats</h3>
-                </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>IP</th>
-                            <th>URI</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for d in threads %}
-                            {% if d.clientip %}
-                                <tr class="danger">
-                                    <td>{{ d.clientip }}</td>
+                                    <td>{{ d.host }}</td>
                                     <td>{{ d.request }}</td>
                                 </tr>
                             {% endif %}
@@ -181,33 +228,29 @@
                 $.ajax({
                     url: "/ajax/latest_data",
                     success: function (resp) {
-                        var data = [];
+                        var data = [], thread_data = [];
                         for (var i = 0; i < resp.request_histogram.length; i++) {
                             data.push([new Date(resp.request_histogram[i][0]), resp.request_histogram[i][1]]);
+                            thread_data.push([new Date(resp.threads_histogram[i][0]), resp.threads_histogram[i][1]]);
                         }
-                        $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
-                            data
+                        $.plot($("#canvas_request"), [
+                            { data: data, label: "Requests" },
                         ], {
                             series: {
-                                lines: {
+                                bars: {
                                     show: true,
-                                    fill: true
-                                },
-                                points: {
-                                    radius: 0,
-                                    show: true
+                                    barWidth: resp.barwidth,
                                 },
                                 shadowSize: 0
                             },
                             grid: {
-                                verticalLines: true,
                                 hoverable: true,
                                 clickable: true,
                                 tickColor: "#d5d5d5",
                                 borderWidth: 1,
                                 color: '#fff'
                             },
-                            colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
+                            colors: ["rgba(38, 185, 154, 0.38)"],
                             xaxis: {
                                 tickColor: "rgba(51, 51, 51, 0.06)",
                                 mode: "time",
@@ -218,10 +261,45 @@
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 10
                             },
-                            yaxis: {
-                                ticks: 8,
-                                tickColor: "rgba(51, 51, 51, 0.06)",
+                            yaxes: [{
+                                min: 0,
+                                tickColor: "rgba(51, 51, 51, 0.00)",
+                            }],
+                            clickable: true, hoverable: true,
+                            tooltip: true
+                        });
+                        $.plot($("#canvas_attack"), [
+                            { data: thread_data, label: "Suspicious" },
+                        ], {
+                            series: {
+                                bars: {
+                                    show: true,
+                                    barWidth: resp.barwidth,
+                                },
+                                shadowSize: 0
                             },
+                            grid: {
+                                hoverable: true,
+                                clickable: true,
+                                tickColor: "#d5d5d5",
+                                borderWidth: 1,
+                                color: '#fff'
+                            },
+                            colors: ["rgba(200, 3, 3, 0.38)"],
+                            xaxis: {
+                                tickColor: "rgba(51, 51, 51, 0.06)",
+                                mode: "time",
+                                tickSize: [5, "min"],
+                                axisLabel: "Time",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 10
+                            },
+                            yaxes: [{
+                                min: 0,
+                                tickColor: "rgba(51, 0, 0, 0.00)",
+                            }],
                             clickable: true, hoverable: true,
                             tooltip: true
                         });
