@@ -15,7 +15,7 @@
                 <section class="login_content">
                     <form action="{% url 'account_login' %}" method="post">
                         {% csrf_token %}
-                        <h1>StarShade</h1>
+                        <p><img src="{% static "assets/img/starshade.png" %}"/></p>
                         {% if redirect_field_value %}
                             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                         {% endif %}
