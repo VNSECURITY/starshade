@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^virtual-fix/(?P<id>[0-9a-zA-Z_-]+)/remove', 'starshade.views.virtual_fix_remove', name='virtual_fix_remove'),
 
     url(r'^ajax/latest_data$', 'starshade.datasource.latest_data'),
+    url(r'^ajax/thread_tree', 'starshade.datasource.threads_tree'),
 
 ]
 

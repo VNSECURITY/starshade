@@ -62,7 +62,7 @@
                 .append("g")
                 .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-        d3.json("/static/mock/flare.json", function (error, root) {
+        d3.json("/ajax/thread_tree", function (error, root) {
             if (error) throw error;
 
             var nodes = tree.nodes(root),

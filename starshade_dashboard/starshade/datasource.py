@@ -30,6 +30,32 @@ def threads():
     return s.execute()
 
 @login_required
+def threads_tree(request):
+    response = threads().to_dict()
+
+    result = {
+        "name" : '/',
+    }
+    for record in response.get('hits',{}).get('hits',[]):
+        root = result
+        record = record.get('_source')
+        if record.get('request',False):
+            for part in record.get('request','').split("/"):
+                if not("children" in root):
+                    root["children"] = []
+                child = None
+                for c in root['children']:
+                    if c['name'] == part:
+                        child = c
+                if child is None:
+                    child = {
+                        "name" : part,
+                    }
+                    root['children'].append(child)
+                root = child
+    return JsonResponse(result)
+
+@login_required
 def latest_data(request):
     if use_mock:
         now = time.time()
